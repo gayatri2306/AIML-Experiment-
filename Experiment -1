@@ -1,0 +1,20 @@
+likes(ravi, cricket).
+likes(ravi, chess).
+likes(anita, painting).
+likes(anita, cricket).
+likes(sameer, football).
+likes(priya, chess).
+likes(priya, painting).
+ 
+enrolled(ravi, ai_ml).
+enrolled(ravi, dbms).
+enrolled(anita, ai_ml).
+enrolled(anita, dsa).
+enrolled(sameer, dbms).
+enrolled(priya, dsa).
+enrolled(priya, ai_ml).
+ 
+classmates(X, Y) :-
+    enrolled(X, Course),
+    enrolled(Y, Course),
+    X \== Y.
