@@ -1,0 +1,8 @@
+timetable(monday,'9:00',python,sristy,room101).
+timetable(monday,'10:00',dsa,surya,room101).
+timetable(tuesday,'9:00',ai,aradhna,room101).
+timetable(tuesday,'10:00',python,sristy,room102).
+timetable(wednesday,'9:00',dbms,sharma,lab102).
+timetable(wednesday,'10:00',python,sristy,lab103).
+faculty_sc(Faculty,Day,Time,Subject,Room):-
+    timetable(Day,Time,Subject,Faculty,Room).
