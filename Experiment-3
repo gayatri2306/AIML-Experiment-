@@ -1,0 +1,19 @@
+% 1. Append two lists
+append_lists(L1, L2, R) :-
+    append(L1, L2, R).
+
+% 2. Reverse a list
+reverse_list(L, R) :-
+    reverse(L, R).
+
+% 3. Check membership
+member_check(X, L) :-
+    member(X, L).
+
+% 4. Search an element in a list
+search(X, L) :-
+    member(X, L).
+
+% 5. Find the length of a list
+list_length(L, N) :-
+    length(L, N).
