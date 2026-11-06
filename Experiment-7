@@ -1,0 +1,48 @@
+
+% Graph edges
+edge(a, b).
+edge(a, c).
+edge(b, d).
+edge(b, e).
+edge(c, f).
+edge(d, g).
+edge(e, g).
+edge(f, g).
+
+% Heuristic values (estimated distance to goal g)
+heuristic(a, 7).
+heuristic(b, 5).
+heuristic(c, 4).
+heuristic(d, 2).
+heuristic(e, 3).
+heuristic(f, 2).
+heuristic(g, 0).
+
+% Greedy Best-First Search
+greedy(Start, Goal, Path) :-
+    greedy_search([[Start]], Goal, ReversePath),
+    reverse(ReversePath, Path).
+
+% Goal reached
+greedy_search([[Goal|Rest]|_], Goal, [Goal|Rest]).
+
+% Expand the node with the smallest heuristic
+greedy_search([[Current|Rest]|Queue], Goal, Path) :-
+    findall(
+        [Next,Current|Rest],
+        (edge(Current, Next),
+         \+ member(Next, [Current|Rest])),
+        NewPaths
+    ),
+    append(Queue, NewPaths, UpdatedQueue),
+    sort_paths(UpdatedQueue, SortedQueue),
+    greedy_search(SortedQueue, Goal, Path).
+
+% Sort paths according to heuristic value
+sort_paths(Paths, Sorted) :-
+    map_list_to_pairs(path_heuristic, Paths, Pairs),
+    keysort(Pairs, SortedPairs),
+    pairs_values(SortedPairs, Sorted).
+
+path_heuristic([Node|_], H) :-
+    heuristic(Node, H).
