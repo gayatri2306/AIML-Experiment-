@@ -1,12 +1,12 @@
 
 % Facts: student(Name, Marks)
 
-student(Anu, 95).
-student(Ravi, 75).
-student(Priya, 55).
-student(Rahul, 32).
-student(Sita, 88).
-student(Aman, 45).
+student(anu, 95).
+student(ravi, 75).
+student(priya, 55).
+student(rahul, 32).
+student(sita, 88).
+student(aman, 45).
 
 % Rules
 
