@@ -1,0 +1,45 @@
+
+% Graph edges with costs
+edge(a, b, 2).
+edge(a, c, 4).
+edge(b, d, 3).
+edge(b, e, 2).
+edge(c, f, 3).
+edge(d, g, 2).
+edge(e, g, 4).
+edge(f, g, 2).
+
+% Heuristic values
+heuristic(a, 7).
+heuristic(b, 5).
+heuristic(c, 4).
+heuristic(d, 2).
+heuristic(e, 3).
+heuristic(f, 2).
+heuristic(g, 0).
+
+% A* Search
+astar(Start, Goal, Path, Cost) :-
+    heuristic(Start, H),
+    astar_search([[H, 0, [Start]]], Goal, RevPath, Cost),
+    reverse(RevPath, Path).
+
+% Goal reached
+astar_search([[_, Cost, [Goal|Rest]]|_],
+              Goal, [Goal|Rest], Cost).
+
+% Expand current node
+astar_search([[_, G, [Current|Rest]]|Queue],
+             Goal, Path, Cost) :-
+    findall(
+        [F, NewG, [Next,Current|Rest]],
+        (edge(Current, Next, StepCost),
+         \+ member(Next, [Current|Rest]),
+         NewG is G + StepCost,
+         heuristic(Next, H),
+         F is NewG + H),
+        NewPaths
+    ),
+    append(Queue, NewPaths, UpdatedQueue),
+    sort(UpdatedQueue, SortedQueue),
+    astar_search(SortedQueue, Goal, Path, Cost).
