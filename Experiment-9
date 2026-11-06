@@ -1,0 +1,26 @@
+
+% Objective function
+f(X, Value) :-
+    Value is -((X - 5) * (X - 5)) + 25.
+
+% Hill Climbing Algorithm
+hill_climb(X, Step, BestX, BestValue) :-
+    f(X, CurrentValue),
+    Left is X - Step,
+    Right is X + Step,
+    f(Left, LeftValue),
+    f(Right, RightValue),
+
+    ( LeftValue > CurrentValue ->
+        hill_climb(Left, Step, BestX, BestValue)
+    ; RightValue > CurrentValue ->
+        hill_climb(Right, Step, BestX, BestValue)
+    ; BestX = X,
+      BestValue = CurrentValue
+    ).
+
+% Start the search
+start :-
+    hill_climb(0, 1, X, Value),
+    write('Optimal X = '), write(X), nl,
+    write('Maximum Value = '), write(Value), nl.
