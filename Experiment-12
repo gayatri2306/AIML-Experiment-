@@ -1,0 +1,27 @@
+
+% Generate positions for N queens
+queens(N, Solution) :-
+    numlist(1, N, Columns),
+    permutation(Columns, Solution),
+    safe(Solution).
+
+% Check whether all queens are safe
+safe([]).
+safe([Q|Others]) :-
+    safe(Others),
+    no_attack(Q, Others, 1).
+
+% Check diagonal and column attacks
+no_attack(_, [], _).
+no_attack(Q, [Next|Others], Distance) :-
+    Q =\= Next,
+    abs(Q - Next) =\= Distance,
+    NextDistance is Distance + 1,
+    no_attack(Q, Others, NextDistance).
+
+% Display solution
+solve :-
+    queens(4, Solution),
+    write('N-Queens Solution: '),
+    write(Solution),
+    nl.
