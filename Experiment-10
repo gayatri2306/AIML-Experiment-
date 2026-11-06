@@ -1,2 +1,48 @@
 
+:- use_module(library(random)).
+
+% Objective function
+f(X, Value) :-
+    Value is X * sin(5 * pi * X) + 1.
+
+% Generate a random neighboring solution
+neighbor(X, Next) :-
+    random_between(-10, 10, R),
+    Next is max(0, min(1, X + R / 100)).
+
+% Simulated Annealing
+simulated_annealing(X, T, BestX, BestValue) :-
+    f(X, CurrentValue),
+    anneal(X, CurrentValue, T, 100, BestX, BestValue).
+
+anneal(X, Value, T, 0, X, Value) :- !.
+
+anneal(X, Value, T, Steps, BestX, BestValue) :-
+    neighbor(X, Next),
+    f(Next, NextValue),
+    Delta is NextValue - Value,
+    ( Delta > 0 ->
+        NewX = Next,
+        NewValue = NextValue
+    ; random(R),
+      Probability is exp(Delta / T),
+      ( R < Probability ->
+          NewX = Next,
+          NewValue = NextValue
+      ;
+          NewX = X,
+          NewValue = Value
+      )
+    ),
+    NewT is T * 0.95,
+    NewSteps is Steps - 1,
+    anneal(NewX, NewValue, NewT, NewSteps,
+           BestX, BestValue).
+
+% Run the algorithm
+start :-
+    simulated_annealing(0.2, 10, X, Value),
+    write('Best X = '), write(X), nl,
+    write('Maximum Value = '), write(Value), nl.
+
     
