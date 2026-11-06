@@ -1,0 +1,33 @@
+
+% Define available colors
+color(red).
+color(green).
+color(blue).
+
+% Map coloring using backtracking
+map_coloring(A, B, C, D, E) :-
+
+    % Assign colors to regions
+    color(A),
+    color(B),
+    color(C),
+    color(D),
+    color(E),
+
+    % Constraints: Adjacent regions must have different colors
+    A \= B,
+    A \= C,
+    B \= C,
+    B \= D,
+    C \= D,
+    C \= E,
+    D \= E.
+
+% Display the solution
+solve :-
+    map_coloring(A, B, C, D, E),
+    write('Region A = '), write(A), nl,
+    write('Region B = '), write(B), nl,
+    write('Region C = '), write(C), nl,
+    write('Region D = '), write(D), nl,
+    write('Region E = '), write(E), nl.
