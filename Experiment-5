@@ -1,0 +1,27 @@
+
+% Facts: student(Name, Marks)
+
+student(Anu, 95).
+student(Ravi, 75).
+student(Priya, 55).
+student(Rahul, 32).
+student(Sita, 88).
+student(Aman, 45).
+
+% Rules
+
+% Topper: Marks >= 85
+topper(Name) :-
+    student(Name, Marks),
+    Marks >= 85.
+
+% Average Performer: Marks >= 50 and < 85
+average(Name) :-
+    student(Name, Marks),
+    Marks >= 50,
+    Marks < 85.
+
+% Failed Student: Marks < 40
+failed(Name) :-
+    student(Name, Marks),
+    Marks < 40.
