@@ -1,0 +1,30 @@
+# Experiment 14: University Course Advisory System
+
+courses = {
+    "AI": ["Artificial Intelligence", "Machine Learning",
+           "Deep Learning"],
+    "Programming": ["Python Programming", "Java Programming",
+                    "Data Structures"],
+    "Data Science": ["Data Analytics", "Big Data",
+                     "Data Visualization"],
+    "Web Development": ["Web Technology", "Full Stack Development",
+                        "UI/UX Design"]
+}
+
+print("UNIVERSITY COURSE ADVISORY SYSTEM")
+print("--------------------------------")
+
+print("Available Interests:")
+for interest in courses:
+    print("-", interest)
+
+student_interest = input("\nEnter your interest: ")
+
+if student_interest in courses:
+    print("\nRecommended Elective Courses:")
+    for course in courses[student_interest]:
+        print("-", course)
+else:
+    print("\nSorry! No courses found for this interest.")
+
+print("\nThank you for using the Course Advisory System!")
