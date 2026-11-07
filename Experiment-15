@@ -1,0 +1,52 @@
+# Experiment 15: Resolution and Unification in FOL
+
+def unify(x, y, substitution):
+    if x == y:
+        return substitution
+
+    if x.islower() and x.isalpha():
+        substitution[x] = y
+        return substitution
+
+    if y.islower() and y.isalpha():
+        substitution[y] = x
+        return substitution
+
+    return None
+
+
+def resolution(clause1, clause2):
+    for literal1 in clause1:
+        for literal2 in clause2:
+
+            if literal1[1:] == literal2[1:] and \
+               literal1[0] != literal2[0]:
+
+                return []
+
+    return None
+
+
+# Knowledge Base
+clause1 = ["Human(x)"]
+clause2 = ["~Human(x)", "Mortal(x)"]
+clause3 = ["~Mortal(Socrates)"]
+
+print("Knowledge Base:")
+print("1.", clause1)
+print("2.", clause2)
+print("3.", clause3)
+
+print("\nApplying Resolution:")
+
+result1 = resolution(clause1, clause2)
+print("Step 1:", result1)
+
+result2 = resolution(clause2, clause3)
+print("Step 2:", result2)
+
+if result1 == [] or result2 == []:
+    print("\nEmpty clause found.")
+    print("Theorem proved successfully!")
+else:
+    print("\nTheorem could not be proved.")
