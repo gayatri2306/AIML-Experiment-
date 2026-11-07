@@ -1,0 +1,44 @@
+# Experiment 13: Blocks World Problem
+
+blocks = ['A', 'B', 'C']
+
+# Initial state
+on_table = ['A', 'B']
+on = [('C', 'A')]
+clear = ['B', 'C']
+
+def check_validity():
+    # Every block must have only one support
+    supports = []
+
+    for block, support in on:
+        supports.append(block)
+
+    supports += on_table
+
+    # Check if every block has exactly one support
+    if len(supports) != len(set(supports)):
+        return False
+
+    if set(supports) != set(blocks):
+        return False
+
+    # Check clear blocks are not supporting another block
+    for block in clear:
+        for upper, lower in on:
+            if lower == block:
+                return False
+
+    # Check all blocks are accounted for
+    return True
+
+
+print("Blocks:", blocks)
+print("On:", on)
+print("On Table:", on_table)
+print("Clear:", clear)
+
+if check_validity():
+    print("Stacking State is VALID")
+else:
+    print("Stacking State is INVALID")
